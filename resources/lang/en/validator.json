@@ -1,0 +1,15 @@
+{
+  "shared": {
+    "field": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "messages": {
+      "required": "{field} is required",
+      "email": "The email must be valid",
+      "confirmed": "The {field} and confirmation must be the same",
+      "minLength": "The {field} must be at least {min} characters",
+      "database.unique": "The {field} is already taken"
+    }
+  }
+}
