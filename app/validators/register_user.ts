@@ -8,8 +8,8 @@ export const registerUserValidator = vine.compile(
       .email()
       .normalizeEmail()
       .unique(async (db, value) => {
-        const user = await db.from('users').select('id').where('email', value)
-        return !!user
+        const user = await db.from('users').select('id').where('email', value).first()
+        return !user
       }),
     password: vine.string().minLength(6).confirmed({
       confirmationField: 'passwordConfirmation',
