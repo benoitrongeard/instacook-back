@@ -1,0 +1,7 @@
+{
+  "register": "An error occurred during registration.",
+  "login": {
+    "default": "An error occurred during login.",
+    "error": "User not found or invalid password."
+  }
+}
