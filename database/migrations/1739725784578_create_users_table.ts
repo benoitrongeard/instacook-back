@@ -4,8 +4,10 @@ export default class extends BaseSchema {
   protected tableName = 'users'
 
   async up() {
+    this.schema.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').notNullable()
+      table.uuid('id').notNullable().primary()
       table.string('full_name').nullable()
       table.string('email', 254).notNullable().unique()
       table.string('password').notNullable()
@@ -13,6 +15,11 @@ export default class extends BaseSchema {
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
     })
+
+    this.schema.raw(`
+      ALTER TABLE ${this.tableName}
+      ALTER COLUMN id SET DEFAULT uuid_generate_v4()
+    `)
   }
 
   async down() {

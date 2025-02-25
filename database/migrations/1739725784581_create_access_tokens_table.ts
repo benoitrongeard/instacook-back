@@ -5,9 +5,9 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.uuid('id')
       table
-        .integer('tokenable_id')
+        .uuid('tokenable_id')
         .notNullable()
         .unsigned()
         .references('id')
@@ -23,6 +23,11 @@ export default class extends BaseSchema {
       table.timestamp('last_used_at').nullable()
       table.timestamp('expires_at').nullable()
     })
+
+    this.schema.raw(`
+      ALTER TABLE ${this.tableName}
+      ALTER COLUMN id SET DEFAULT uuid_generate_v4()
+    `)
   }
 
   async down() {
